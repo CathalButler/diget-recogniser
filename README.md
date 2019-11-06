@@ -26,6 +26,6 @@ The environment setup needed:
  * To activate virtual environment created inside the project directory:
     * `source venv/bin/activate`
     
- * Install the [required python packages](https://docs.python.org/3/tutorial/venv.html#managing-packages-with-pip) listed in the [requirements.txt]() file, this can be done by:
+ * Install the [required python packages](https://docs.python.org/3/tutorial/venv.html#managing-packages-with-pip) listed in the [requirements.txt](https://github.com/butlawr/Emerging-Technologies-Project/blob/master/requirements.txt) file, this can be done by:
     * `pip install -r requirements.txt`
     * Note: Still in development, more requirements may be added.
