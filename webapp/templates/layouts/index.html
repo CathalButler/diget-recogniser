@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% block head %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/css/style.css">
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="../static/js/script.js"></script>
+        <title>{% block title %}{% endblock %} - Flash application to read in hand drawn numbers</title>
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <div class="row text-center">
+        <h1>{{ title }}</h1>
+        <canvas id="inputCanvas" width="200" height="200"></canvas>
+    </div>
+    <br/><br/>
+    <div class="row text-center">
+        <button class="btn btn-primary" id="clearButton">Clear</button>
+        <button class="btn btn-primary" id="sendButton">Send data</button>
+    </div>
+{% endblock %}
+<footer>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</footer>
+</body>
+</html>
