@@ -1,6 +1,8 @@
 from __future__ import print_function
 
+import base64
 import os
+import re
 import cv2 as cv2
 import flask
 import numpy as np
@@ -8,6 +10,10 @@ import tensorflow as tf
 from flask import Flask, render_template
 from keras import backend as k
 from keras.engine.saving import load_model
+
+# Cathal Butler | G00346889
+# Class that allows API requests from a client to to a prediction check on a number they draw on the canvas that is
+# displayed to them.
 
 # Reference:
 # https://www.jitsejan.com/python-and-javascript-in-flask.html
@@ -40,6 +46,13 @@ def prepare_image(image, size=(28, 28)):
     return cv2.resize(image, size).flatten()
 
 
+# Function to convert the data sent in the /predict post request to an image
+def convert_to_image(imageData):
+    imgstr = re.search(r'base64,(.*)', str(imageData)).group(1)
+    with open('output.png', 'wb') as output:
+        output.write(base64.b64decode(imgstr))
+
+
 # Function to make a post request with the data from the canvas:
 @app.route('/predict', methods=['POST'])
 def post_predict():
@@ -49,27 +62,27 @@ def post_predict():
 
     # ensure an image was properly uploaded to our endpoint
     if flask.request.method == "POST":
-        if flask.request.files.get("image"):
+        # app.logger.info("got in side the function " + image)
+        # read data from request
+        # TODO: Implemented handling for different input types as I believe currently its casing issues
+        filestr = flask.request.get_data()
+        # convert string data to numpy array
+        npimg = np.fromstring(filestr, np.uint8)
+        # convert numpy array to image
+        image = cv2.imdecode(npimg, cv2.IMREAD_GRAYSCALE)
+        # make it the right size and flatten data
+        image = np.array(prepare_image(image, size=(28, 28)))
+        # reshape the array
+        # TODO: Fix why im getting an  error: (-215:Assertion failed) !ssize.empty() in function 'resize'
+        image = image.reshape(1, 28, 28, 1)
+        app.logger.info(image)
+        # set a session - note please see links above for why this is needed.
+        with sess.as_default():
+            with graph.as_default():
+                data["prediction"] = str(model.predict_classes(image))
+                data["success"] = True
 
-            # read image file string data
-            filestr = flask.request.files['image'].read()
-            # convert string data to numpy array
-            npimg = np.fromstring(filestr, np.uint8)
-            # convert numpy array to image
-            image = cv2.imdecode(npimg, cv2.IMREAD_GRAYSCALE)
-
-            app.logger.info("got in side the function " + image)
-
-            # convert the image to an array 
-            image = np.array(prepare_image(image, size=(28, 28)))
-            # reshape the array to be the correct size for the model
-            image = image.reshape(1, 28, 28, 1)
-            # set a session - note please see links above for why this is needed.
-            with sess.as_default():
-                with graph.as_default():
-                    data["prediction"] = str(model.predict_classes(image))
-                    data["success"] = True
-
+    # TODO: tidy response that display on index.html
     # Return the predicted number that the model returned
     return flask.jsonify(data)
 
@@ -79,14 +92,6 @@ def post_predict():
 def index():
     title = 'Create the input'
     return render_template('layouts/index.html',
-                           title=title)
-
-
-# Function to get the result back from the model:
-@app.route('/results/', methods=['GET'])
-def results():
-    title = 'Result'
-    return render_template('layouts/results.html',
                            title=title)
 
 

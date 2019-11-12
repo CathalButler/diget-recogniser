@@ -57,13 +57,12 @@ $(document).ready(function () {
 
     async function getData() {
         let canvas = document.getElementById("inputCanvas");
-        let imageData = canvas.context.getImageData(0, 0, canvas.width, canvas.height);
-        let imagedata = imageData.data;
+        let imageData = canvas.toDataURL();
 
         // Making a post request with image data in the body of the request
         let response = await fetch('/predict', {
             method: 'POST',
-            body: imagedata
+            body: imageData
         });
         // the server responds
         let result = await response.json();
