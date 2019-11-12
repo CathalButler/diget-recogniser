@@ -21,6 +21,7 @@ from keras.engine.saving import load_model
 # initialize Flask application and the Keras model:
 app = Flask(__name__, )
 app.debug = True
+app.secret_key = 'development'
 # Define static folder location
 app._static_folder = os.path.abspath("webapp/templates/static/")
 # load trained keras model:
@@ -43,17 +44,21 @@ def prepare_image(image, size=(28, 28)):
 @app.route('/predict', methods=['POST'])
 def post_predict():
     # global vars
-    global model, graph, sess
+    global model, graph, sess, image
+    data = {"success": False}
 
     # ensure an image was properly uploaded to our endpoint
     if flask.request.method == "POST":
         if flask.request.files.get("image"):
+
             # read image file string data
             filestr = flask.request.files['image'].read()
             # convert string data to numpy array
             npimg = np.fromstring(filestr, np.uint8)
             # convert numpy array to image
             image = cv2.imdecode(npimg, cv2.IMREAD_GRAYSCALE)
+
+            app.logger.info("got in side the function " + image)
 
             # convert the image to an array 
             image = np.array(prepare_image(image, size=(28, 28)))
@@ -62,10 +67,11 @@ def post_predict():
             # set a session - note please see links above for why this is needed.
             with sess.as_default():
                 with graph.as_default():
-                    image = model.predict_classes(image)
+                    data["prediction"] = str(model.predict_classes(image))
+                    data["success"] = True
 
-            # Return the predicted number that the model returned
-            return 'Predicted Number: ' + str(image[0])
+    # Return the predicted number that the model returned
+    return flask.jsonify(data)
 
 
 # Function with route '/' to 'GET' the home page : index.html
@@ -87,4 +93,4 @@ def results():
 # Running application
 if __name__ == '__main__':
     load_keras_model()
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
