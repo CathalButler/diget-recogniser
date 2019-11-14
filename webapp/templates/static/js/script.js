@@ -66,8 +66,9 @@ $(document).ready(function () {
         });
         // the server responds
         let result = await response.json();
+        console.log(result);
         // Alert user
-        alert(result.message)
+        alert(result)
     }// End getdata function
 
     $("#clearButton").click(function () {

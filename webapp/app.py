@@ -64,18 +64,16 @@ def post_predict():
     if flask.request.method == "POST":
         # app.logger.info("got in side the function " + image)
         # read data from request
-        # TODO: Implemented handling for different input types as I believe currently its casing issues
-        filestr = flask.request.get_data()
-        # convert string data to numpy array
-        npimg = np.fromstring(filestr, np.uint8)
-        # convert numpy array to image
-        image = cv2.imdecode(npimg, cv2.IMREAD_GRAYSCALE)
+        data_url = flask.request.get_data()
+        # remove unneeded data from the start of the data URL and convert the bytes into an image
+        convert_to_image(data_url)
+        # read the image into memory
+        image = cv2.imread('output.png')
+        # convert the image to gray scale
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # make it the right size and flatten data
-        image = np.array(prepare_image(image, size=(28, 28)))
-        # reshape the array
-        # TODO: Fix why im getting an  error: (-215:Assertion failed) !ssize.empty() in function 'resize'
-        image = image.reshape(1, 28, 28, 1)
-        app.logger.info(image)
+        image = prepare_image(image, size=(28, 28))
+        image = np.array(image).reshape((1, 28, 28, 1))
         # set a session - note please see links above for why this is needed.
         with sess.as_default():
             with graph.as_default():
