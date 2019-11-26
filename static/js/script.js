@@ -18,6 +18,8 @@ function init(width, height, fillColor) {
         this.moveTo(x, y);
         this.arc(x, y, radius, 0, Math.PI * 2, false);
         this.fill();
+
+        document.getElementById("data").value = document.getElementById("inputCanvas").toDataURL();
     };
     ctx.clearTo = function (fillColor) {
         ctx.fillStyle = fillColor;
@@ -35,6 +37,7 @@ function init(width, height, fillColor) {
         let radius = 10;
         let fillColor = 'rgb(102,153,255)';
         ctx.fillCircle(x, y, radius, fillColor);
+
     };
     canvas.onmousedown = function (e) {
         canvas.isDrawing = true;
@@ -61,7 +64,7 @@ function send() {
 
     // https://stackoverflow.com/questions/34779799/upload-base64-image-with-ajax
     $.ajax({
-        url: '/predict',
+        url: '/',
         method: 'POST',
         body: imageData
     }).done(function (e) {

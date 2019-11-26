@@ -15,12 +15,16 @@
     </div>
     <br/><br/>
     <div class="row text-center">
-        <button class="btn btn-primary" id="clearButton">Clear</button>
-        <form  method="POST"  action="{{url_for('post_predict')}}">
-            <button class="btn btn-primary" id="sendButton" onclick="send()">Send data</button>
+        <!-- Send canvas data -->
+        <form method="POST">
+            <button class="btn btn-primary" id="clearButton">Clear</button>
+            <input type="hidden" name="data" id="data">
+            <input type="submit" class="btn btn-primary" value="Send">
         </form>
     </div>
-        <div id="result">Results will display here:</div>
+    {% if result %}
+        <div id="result">Results will display here: {{ result }}</div>
+    {% endif %}
 {% endblock %}
 <footer>
     <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>

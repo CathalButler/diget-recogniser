@@ -23,33 +23,12 @@ app = Flask(__name__)
 
 
 # Function with route '/' to 'GET' the home page : index.html
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
-
-
-# Function to resize and flatten the image received int he POST request
-def prepare_image(img, size=(28, 28)):
-    return cv2.resize(img, size).flatten()
-
-
-# Function to convert the data sent in the /predict post request to an image
-def convert_to_image(image_data):
-    # https://stackoverflow.com/questions/30963705/python-regex-attributeerror-nonetype-object-has-no-attribute-group/30964049
-    print(image_data[24:])
-    # Decode the image & save the image
-    with open('input_digit.png', 'wb') as f:
-        # data_url[24:] using everything in the array after 24
-        f.write(base64.b64decode(image_data[24:]))
-
-
-# Function to make a post request with the data from the canvas:
-@app.route('/predict', methods=['GET', 'POST'])
-def post_predict():
     # ensure an image was properly uploaded to our endpoint
     if request.method == "POST":
         # read data from request
-        data_url = request.get_data()
+        data_url = request.form.get("data")
 
         # remove unneeded data from the start of the data URL and convert the bytes into an image
         convert_to_image(data_url)
@@ -76,7 +55,24 @@ def post_predict():
         print(predicted_number)
 
         # Return the number to the webpack
-        return predicted_number
+        return render_template('index.html', result=predicted_number)
+
+    return render_template('index.html')
+
+
+# Function to resize and flatten the image received int he POST request
+def prepare_image(img, size=(28, 28)):
+    return cv2.resize(img, size).flatten()
+
+
+# Function to convert the data sent in the /predict post request to an image
+def convert_to_image(image_data):
+    # https://stackoverflow.com/questions/30963705/python-regex-attributeerror-nonetype-object-has-no-attribute-group/30964049
+    print(image_data[22:])
+    # Decode the image & save the image
+    with open('input_digit.png', 'wb') as f:
+        # data_url[24:] using everything in the array after 24
+        f.write(base64.b64decode(image_data[22:]))
 
 
 # Running application
