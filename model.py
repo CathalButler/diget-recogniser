@@ -9,6 +9,14 @@ from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
 
+# NOTES Originally I was trying to predict numbers from the trained model that I saved inside the jupyter notebook.
+# Doing so was causing me errors with elements that that had saved from the notebook that I didnt need in the saved
+# model. To overcome this issue I did a copy of a lot of the code from the notebook into this class were the model
+# can run and train the data without adding elements that are not needed. Running a save within the notebook and then
+# loading the model in my flask webapp was causing a lot of issues that I did fix with the help of
+# https://towardsdatascience.com/deploying-keras-deep-learning-models-with-flask-5da4181436a2 with sess.as_default():
+# with graph.as_default(): prediction = np.array(model.predict(image)[0])
+
 # The number of training examples in one forward/backward pass.
 # The higher the batch size, the more memory space you'll need.
 batch_size = 128
@@ -105,7 +113,7 @@ except:
     print("Saved model to disk")
 
 finally:
-    print("model loaded")
+    print("Model loaded from save file")
     score = model.evaluate(x_test, y_test, verbose=0)
     print('Test cross-entropy loss: %0.5f' % score[0])
     print('Test accuracy: %.2f%%' % (score[1] * 100))

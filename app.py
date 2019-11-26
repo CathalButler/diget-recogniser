@@ -1,5 +1,4 @@
 import base64
-import re
 
 import cv2 as cv2
 import numpy as np
@@ -36,42 +35,48 @@ def prepare_image(img, size=(28, 28)):
 
 # Function to convert the data sent in the /predict post request to an image
 def convert_to_image(image_data):
-    try:
-        imgstr = re.search(r'base64,(.*)', str(image_data)).group(1)
-    except:
-        imgstr = None
-    with open('output.png', 'wb') as output:
-        output.write(base64.b64decode(imgstr))
+    # https://stackoverflow.com/questions/30963705/python-regex-attributeerror-nonetype-object-has-no-attribute-group/30964049
+    print(image_data[24:])
+    # Decode the image & save the image
+    with open('input_digit.png', 'wb') as f:
+        # data_url[24:] using everything in the array after 24
+        f.write(base64.b64decode(image_data[24:]))
 
 
 # Function to make a post request with the data from the canvas:
 @app.route('/predict', methods=['GET', 'POST'])
 def post_predict():
     # ensure an image was properly uploaded to our endpoint
+    if request.method == "POST":
+        # read data from request
+        data_url = request.get_data()
 
-    # app.logger.info("got in side the function " + image)
-    # read data from request
-    data_url = request.get_data()
-    print("YURTTTTTTTTTTTTTTTTTTTTTT")
-    # remove unneeded data from the start of the data URL and convert the bytes into an image
-    convert_to_image(data_url)
-    # read the image into memory
-    image = cv2.imread('output.png')
-    # convert the image to gray scale
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # make it the right size and flatten data
-    image = prepare_image(image, size=(28, 28))
-    image = np.array(image).reshape((1, 28, 28, 1))
+        # remove unneeded data from the start of the data URL and convert the bytes into an image
+        convert_to_image(data_url)
 
-    # Load the trained model
-    model = load_model('model.h5')
+        # read image into memory
+        image = cv2.imread('input_digit.png')
+        # convert the image to gray scale
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    prediction = np.array(model.predict(image)[0])
+        # make it the right size of 28x28
+        image = prepare_image(image, size=(28, 28))
+        # reshape the array
+        image = np.array(image).reshape((1, 28, 28, 1))
 
-    predicted_number = str(np.argmax(prediction))
-    print(predicted_number)
+        # Load the trained model
+        model = load_model('model.h5')
 
-    return predicted_number
+        # Make a predication with of the image agents tbe trained model
+        prediction = np.array(model.predict(image)[0])
+
+        # Use np.argmax to return the highest number from the array. In theory it should be the number drawn in the
+        # canvas
+        predicted_number = str(np.argmax(prediction))
+        print(predicted_number)
+
+        # Return the number to the webpack
+        return predicted_number
 
 
 # Running application

@@ -57,7 +57,7 @@ function send() {
     let canvas = document.getElementById("inputCanvas");
     let imageData = canvas.toDataURL();
 
-    console.log(imageData);
+        console.log(imageData);
 
     // https://stackoverflow.com/questions/34779799/upload-base64-image-with-ajax
     $.ajax({

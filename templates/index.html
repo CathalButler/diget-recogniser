@@ -7,7 +7,7 @@
         <title>{% block title %}{% endblock %} - Flash application to read in hand drawn numbers</title>
     {% endblock %}
 </head>
-<body>
+<body onload="init()">
 {% block content %}
     <div class="row text-center">
         <h1>{{ title }}</h1>
@@ -16,7 +16,7 @@
     <br/><br/>
     <div class="row text-center">
         <button class="btn btn-primary" id="clearButton">Clear</button>
-        <form  method="POST">
+        <form  method="POST"  action="{{url_for('post_predict')}}">
             <button class="btn btn-primary" id="sendButton" onclick="send()">Send data</button>
         </form>
     </div>
