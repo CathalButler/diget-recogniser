@@ -3,9 +3,7 @@
 <head>
     {% block head %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../static/css/style.css">
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script src="../static/js/script.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
         <title>{% block title %}{% endblock %} - Flash application to read in hand drawn numbers</title>
     {% endblock %}
 </head>
@@ -18,12 +16,15 @@
     <br/><br/>
     <div class="row text-center">
         <button class="btn btn-primary" id="clearButton">Clear</button>
-        <button class="btn btn-primary" id="sendButton">Send data</button>
+        <form  method="POST">
+            <button class="btn btn-primary" id="sendButton" onclick="send()">Send data</button>
+        </form>
     </div>
-    <div id="result">Results will display here:</div>
+        <div id="result">Results will display here:</div>
 {% endblock %}
 <footer>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </footer>
 </body>
 </html>
