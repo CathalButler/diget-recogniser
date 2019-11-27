@@ -46,7 +46,6 @@ function init(width, height, fillColor) {
         canvas.isDrawing = false;
     };
 }
-
 //Run init function:
 init(200, 200, '#ddd');
 
@@ -55,20 +54,3 @@ function clearCanvas() {
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
-
-function send() {
-    let canvas = document.getElementById("inputCanvas");
-    let imageData = canvas.toDataURL();
-
-        console.log(imageData);
-
-    // https://stackoverflow.com/questions/34779799/upload-base64-image-with-ajax
-    $.ajax({
-        url: '/',
-        method: 'POST',
-        body: imageData
-    }).done(function (e) {
-        console.log("Sent data");
-        $("#result").empty().append(e);
-    });
-}// End getdata function

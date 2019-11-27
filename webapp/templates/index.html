@@ -4,6 +4,7 @@
     {% block head %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='keras.ico') }}">
         <title>{% block title %}{% endblock %} - Flash application to read in hand drawn numbers</title>
     {% endblock %}
 </head>
@@ -17,7 +18,7 @@
     <div class="row text-center">
         <!-- Send canvas data -->
         <form method="POST">
-            <button class="btn btn-primary" id="clearButton">Clear</button>
+            <button class="btn btn-primary" id="clearButton" onclick="clearCanvas()">Clear</button>
             <input type="hidden" name="data" id="data">
             <input type="submit" class="btn btn-primary" value="Send">
         </form>

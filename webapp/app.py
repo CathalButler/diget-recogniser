@@ -21,7 +21,6 @@ from keras.engine.saving import load_model
 # initialize Flask application and the Keras model:
 app = Flask(__name__)
 
-
 # Function with route '/' to 'GET' the home page : index.html
 @app.route('/', methods=['GET', 'POST'])
 def index():
