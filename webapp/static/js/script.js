@@ -1,3 +1,4 @@
+// Function to create a a canvas with width and height and container
 function createCanvas(parent, width, height) {
     // get element from the html webpage by its ID and store it in canvas:
     let canvas = document.getElementById("inputCanvas");
@@ -18,14 +19,14 @@ function init(width, height, fillColor) {
         this.moveTo(x, y);
         this.arc(x, y, radius, 0, Math.PI * 2, false);
         this.fill();
-
-        document.getElementById("data").value = document.getElementById("inputCanvas").toDataURL();
+        //Update data element each time the input canvas gets updated:
+        document.getElementById("canvas_data").value = document.getElementById("inputCanvas").toDataURL();
     };
     ctx.clearTo = function (fillColor) {
         ctx.fillStyle = fillColor;
         ctx.fillRect(0, 0, width, height);
     };
-    ctx.clearTo("#fff");
+    ctx.clearTo("#000000");
 
     //Draw function to allow the user draw within the canvas with the moose:
     canvas.onmousemove = function (e) {
@@ -35,7 +36,7 @@ function init(width, height, fillColor) {
         let x = e.pageX - this.offsetLeft;
         let y = e.pageY - this.offsetTop;
         let radius = 10;
-        let fillColor = 'rgb(102,153,255)';
+        let fillColor = 'rgb(255,255,255)';
         ctx.fillCircle(x, y, radius, fillColor);
 
     };
@@ -46,11 +47,38 @@ function init(width, height, fillColor) {
         canvas.isDrawing = false;
     };
 }
-//Run init function:
-init(200, 200, '#ddd');
 
+//Run init function:
+init(200, 200, '#000000');
+
+function sendCanvasData() {
+    let canvas = document.getElementById("inputCanvas");
+    let canvas_data_url = canvas.toDataURL();
+    console.log(canvas_data_url);
+
+    $.ajax({
+        url: '/predict',
+        method: 'POST',
+        data: {data_url_string: canvas_data_url}
+    }).done(function (data) {
+        console.log(data)
+    });
+}//End send function
+
+//Function to clear canvas
 function clearCanvas() {
     let canvas = document.getElementById("inputCanvas");
     let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+}//End function
+
+
+//www.chartjs.org/docs/latest/
+//Function to chart prediction
+function loadChart(label, data) {
+
+}
+
+function displayChart(data) {
+
 }

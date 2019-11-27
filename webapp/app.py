@@ -2,7 +2,7 @@ import base64
 
 import cv2 as cv2
 import numpy as np
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from keras.engine.saving import load_model
 
 # Cathal Butler | G00346889
@@ -19,16 +19,24 @@ from keras.engine.saving import load_model
 
 
 # initialize Flask application and the Keras model:
+
 app = Flask(__name__)
 
-# Function with route '/' to 'GET' the home page : index.html
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    # ensure an image was properly uploaded to our endpoint
-    if request.method == "POST":
-        # read data from request
-        data_url = request.form.get("data")
 
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
+
+
+# Function with route '/' to 'GET' the home page : index.html
+@app.route('/predict', methods=['POST', 'GET'])
+def post_predict():
+    # ensure an image was properly uploaded to our endpoint
+    if request.method == 'POST':
+        # read data from request
+        data_url = request.values['data_url_string']
+
+        print(data_url)
         # remove unneeded data from the start of the data URL and convert the bytes into an image
         convert_to_image(data_url)
 
@@ -46,17 +54,28 @@ def index():
         model = load_model('model.h5')
 
         # Make a predication with of the image agents tbe trained model
-        prediction = np.array(model.predict(image)[0])
-
         # Use np.argmax to return the highest number from the array. In theory it should be the number drawn in the
+        prediction_number = np.array(np.argmax(model.predict(image)))
+
+        # prediction = model.predict(image/255, batch_size=8, verbose=0)
+        # prediction = model.predict(image)
+        # print(prediction_number)
+        # print(prediction)
+
         # canvas
-        predicted_number = str(np.argmax(prediction))
-        print(predicted_number)
+        # predicted_number = str(np.argmax(prediction_number))
+        # print(predicted_number)
+
+        response_data = {}
+        try:
+            response_data['prediction'] = str(prediction_number)
+            response_data['result'] = 'Success'
+        except:
+            response_data['result'] = 'Failed'
+            response_data['message'] = 'Script has not ran correctly'
 
         # Return the number to the webpack
-        return render_template('index.html', result=predicted_number)
-
-    return render_template('index.html')
+        return jsonify(response_data)
 
 
 # Function to resize and flatten the image received int he POST request

@@ -1,9 +1,51 @@
-.btn{
-    background-color: rgb(102,153,255);
+body {
+    padding: 0;
+    margin: 0;
 }
-#inputCanvas{
-    border: 2px solid rgb(102,153,255);
+
+.btn {
+    background-color: rgb(102, 153, 255);
 }
-#footer{
+
+.canvas-box-wrapper {
+  display: block !important; }
+
+#inputCanvas {
+    border: 2px solid rgb(102, 153, 255);
+}
+
+#footer {
     margin-top: 100px;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+}
+
+.inner-container {
+    border-radius: 5px;
+    margin: 20px auto;
+    width: 680px;
+}
+
+.inner-container h3 {
+    font-size: 15px;
+    padding: 10px;
+    color: white;
+    margin: 0px;
+    border-bottom: 0px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.flex-two {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-two div {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
 }
