@@ -1,6 +1,8 @@
 ## Emerging-Technologies-Project
 ### Cathal Butler | G00346889 | Final Year Software Development
-A jupyter notebook containing code to train a model, and a flask web application that allows user. Final year Software Development Project for Emerging Technologies.
+A jupyter notebook containing code and documentation to train a model on the MNIST dataset as well as a flask web 
+application that allows user draw a digit from 0 -> 9 and submit it. The application will process the image and make 
+prediction from the trained model and return answer.
 
 ### Environment Setup
 The environment setup needed:

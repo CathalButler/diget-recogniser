@@ -5,30 +5,34 @@ import numpy as np
 from flask import Flask, render_template, request, jsonify
 from keras.engine.saving import load_model
 
-# Cathal Butler | G00346889
-# Class that allows API requests from a client to to a prediction check on a number they draw on the canvas that is
-# displayed to them.
+"""
+Cathal Butler | G00346889 | Emerging Technologies Project 
+This class handles starting a Flask application which then handles API requests send from the client view. 
+The frontend allows users draw a number between 0 -> 9 on a canvas that will then be processed below to meet the 
+requirements needed to to a prediction of the number agents a trained model. The predicted number is then sent back 
+to the user. 
 
-# Reference:
-# https://www.jitsejan.com/python-and-javascript-in-flask.html
-# https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html
-# https://stackoverflow.com/questions/45408496/getting-error-cannot-reshape-array-of-size-122304-into-shape-52-28-28
-# https://github.com/tensorflow/tensorflow/issues/28287#issuecomment-495005162
-# http://yangyang.blog/2019/03/it-works-an-epic-debugging-thesis-week-8/
-# https://stackoverflow.com/questions/53653303/where-is-the-tensorflow-session-in-keras
+Reference:
+https://www.jitsejan.com/python-and-javascript-in-flask.html
+https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html
+https://stackoverflow.com/questions/45408496/getting-error-cannot-reshape-array-of-size-122304-into-shape-52-28-28
+https://github.com/tensorflow/tensorflow/issues/28287#issuecomment-495005162
+http://yangyang.blog/2019/03/it-works-an-epic-debugging-thesis-week-8/
+https://stackoverflow.com/questions/53653303/where-is-the-tensorflow-session-in-keras
+https://stackoverflow.com/questions/30963705/python-regex-attributeerror-nonetype-object-has-no-attribute-group/30964049
+"""
 
-
-# initialize Flask application and the Keras model:
-
+# initialize Flask application
 app = Flask(__name__)
 
 
+# GET ROUTE which will return a render of the index.html page
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
 
 
-# Function with route '/' to 'GET' the home page : index.html
+# GET, POST ROUTE which will allow a POST request of input canvas data to be processed and then returned
 @app.route('/predict', methods=['POST', 'GET'])
 def post_predict():
     # ensure an image was properly uploaded to our endpoint
@@ -85,7 +89,6 @@ def prepare_image(img, size=(28, 28)):
 
 # Function to convert the data sent in the /predict post request to an image
 def convert_to_image(image_data):
-    # https://stackoverflow.com/questions/30963705/python-regex-attributeerror-nonetype-object-has-no-attribute-group/30964049
     print(image_data[22:])
     # Decode the image & save the image
     with open('input_digit.png', 'wb') as f:

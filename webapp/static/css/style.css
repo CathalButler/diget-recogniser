@@ -31,8 +31,9 @@ body {
 
 .inner-container h3 {
     font-size: 15px;
+    text-align: center;
     padding: 10px;
-    color: white;
+    color: black;
     margin: 0px;
     border-bottom: 0px;
     border-top-left-radius: 5px;

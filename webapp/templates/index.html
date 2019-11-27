@@ -1,41 +1,39 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>{% block title %}{% endblock %} - Flash application to read in hand drawn numbers</title>
+    <title>Flash application to read in hand drawn numbers</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='keras.ico') }}">
 </head>
 <body onload="init()">
 <div class="container">
-    <!-- Input canvas  -->
     <div class="inner-container">
         <h3 id="">Digit Recognizer with the MNIST dataset </h3>
-
         <div class="flex-two" style="margin-top: 20px;">
-
             <div class="flex-two">
                 <div id="canvas_box_wrapper" class="canvas_box_wrapper">
+                    <!-- Input canvas  -->
                     <canvas id="inputCanvas" width="200" height="200"></canvas>
                     <!-- Send canvas data -->
                     <form method="POST">
                         <input type="hidden" name="canvas_data" id="canvas_data">
+                        <!-- Send button -->
                         <input type="button" class="btn btn-primary" value="Send" onclick="sendCanvasData()">
                     </form>
+                    <!-- Clear Canvas Button -->
                     <button class="btn btn-primary" id="clearButton" onclick="clearCanvas()">Clear</button>
                 </div>
             </div>
-
-
-            {% if result %}
-                <div id="result">Results will display here: {{ result }}</div>
-            {% endif %}
         </div>
+        <!-- Result displayed from response from server -->
+        <h3 id="result">Results will display here:</h3>
     </div>
 </div>
+</body>
+<!-- Footer -->
 <footer>
     <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </footer>
-</body>
 </html>
