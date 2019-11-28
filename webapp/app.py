@@ -61,7 +61,7 @@ def post_predict():
         model = load_model('model.h5')
 
         # Make a predication with of the image agents tbe trained model
-        prediction = model.predict(image)
+        prediction = model.predict(image/255, verbose=0)
 
         # Use np.argmax to return the highest number from the array. In theory it should be the number drawn in the
         predicted_number = np.argmax(prediction)
