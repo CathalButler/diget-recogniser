@@ -21,9 +21,6 @@ http://yangyang.blog/2019/03/it-works-an-epic-debugging-thesis-week-8/
 https://stackoverflow.com/questions/53653303/where-is-the-tensorflow-session-in-keras
 https://stackoverflow.com/questions/30963705/python-regex-attributeerror-nonetype-object-has-no-attribute-group/30964049
 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect
-https://machinelearningmastery.com/save-load-keras-deep-learning-models/
-https://towardsdatascience.com/deploying-keras-deep-learning-models-with-flask-5da4181436a2
-https://www.chartjs.org/docs/latest/
 """
 
 # initialize Flask application
