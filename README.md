@@ -4,6 +4,8 @@ A jupyter notebook containing code and documentation to train a model on the MNI
 application that allows user draw a digit from 0 -> 9 and submit it. The application will process the image and make 
 prediction from the trained model and return answer.
 
+### [Try it live here](http://34.243.25.139:8080/) 
+
 ### Environment Setup
 The environment setup needed:
  
@@ -12,8 +14,8 @@ The environment setup needed:
  * Install [Python 3.7 ](https://www.python.org/downloads/)
  * Set up a [python virtual environment](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments) inside the project directory:
     * `cd /Emerging-Technologies-Project`
-    * `pip install virtualenv`
-    * `virtualenv venv` 
+    * `pip3 install virtualenv`
+    * `python3 -m venve ./venv`
         * this will create a virtual environment called venv, you may name it what you like.
  * To activate virtual environment created inside the project directory:
     * `source venv/bin/activate`
