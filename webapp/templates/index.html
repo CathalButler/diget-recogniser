@@ -1,28 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Flash application to read in hand drawn numbers</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='keras.ico') }}">
 </head>
-<body onload="init()">
+<body>
+<!-- Page Heading -->
+<header>
+    <h2>Digit Recognizer with the MNIST dataset </h2>
+</header>
+
 <div class="container">
+    <div class="buttons">
+        <!-- Clear Canvas Button -->
+        <button class="btn btn-primary btn-spacing" id="clearButton" onclick="clearCanvas()">Clear</button>
+        <!-- Send button -->
+        <button type="button" class="btn btn-primary btn-spacing" onclick="sendCanvasData()"> Send</button>
+    </div>
     <div class="inner-container">
-        <h3 id="">Digit Recognizer with the MNIST dataset </h3>
         <div class="flex-two" style="margin-top: 20px;">
             <div class="flex-two">
                 <div id="canvas_box_wrapper" class="canvas_box_wrapper">
                     <!-- Input canvas  -->
-                    <canvas id="inputCanvas" width="200" height="200"></canvas>
-                    <!-- Send canvas data -->
-                    <form method="POST">
-                        <input type="hidden" name="canvas_data" id="canvas_data">
-                        <!-- Send button -->
-                        <input type="button" class="btn btn-primary" value="Send" onclick="sendCanvasData()">
-                    </form>
-                    <!-- Clear Canvas Button -->
-                    <button class="btn btn-primary" id="clearButton" onclick="clearCanvas()">Clear</button>
+                    <canvas id="input_canvas" width="200" height="200"></canvas>
+                </div>
+                <input type="hidden" name="canvas_data" id="canvas_data">
+                <div class="flex-two">
+                    <div id="result_box">
+                        <canvas id="chart_box" width="200" height="200"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -33,7 +41,11 @@
 </body>
 <!-- Footer -->
 <footer>
+    <!-- My script file -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- Charts.js import -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <!-- jQuery script -->
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </footer>
 </html>

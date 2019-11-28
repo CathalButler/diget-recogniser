@@ -3,19 +3,19 @@ body {
     margin: 0;
 }
 
-.btn {
-    background-color: rgb(102, 153, 255);
+header {
+    background-color: #666;
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
 }
-
 .canvas-box-wrapper {
-  display: block !important; }
-
-#inputCanvas {
-    border: 2px solid rgb(102, 153, 255);
+    display: block !important;
 }
 
-#footer {
-    margin-top: 100px;
+#input_canvas {
+    border: 2px solid rgb(102, 153, 255);
 }
 
 .container {
@@ -34,8 +34,6 @@ body {
     text-align: center;
     padding: 10px;
     color: black;
-    margin: 0px;
-    border-bottom: 0px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -47,6 +45,38 @@ body {
 
 .flex-two div {
     flex: 1;
-    padding: 20px;
     text-align: center;
 }
+
+@media screen and (max-width: 640px) {
+    #chart_box {
+        padding: 5px;
+    }
+}
+
+.btn {
+    background-color: rgb(102, 153, 255);
+}
+
+.btn-spacing {
+    margin-right: 10px;
+    margin-bottom: 5px !important;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+    margin: 5px;
+}
+
+footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+
+

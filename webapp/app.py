@@ -20,6 +20,10 @@ https://github.com/tensorflow/tensorflow/issues/28287#issuecomment-495005162
 http://yangyang.blog/2019/03/it-works-an-epic-debugging-thesis-week-8/
 https://stackoverflow.com/questions/53653303/where-is-the-tensorflow-session-in-keras
 https://stackoverflow.com/questions/30963705/python-regex-attributeerror-nonetype-object-has-no-attribute-group/30964049
+https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect
+https://machinelearningmastery.com/save-load-keras-deep-learning-models/
+https://towardsdatascience.com/deploying-keras-deep-learning-models-with-flask-5da4181436a2
+https://www.chartjs.org/docs/latest/
 """
 
 # initialize Flask application
@@ -58,36 +62,29 @@ def post_predict():
         model = load_model('model.h5')
 
         # Make a predication with of the image agents tbe trained model
+        prediction = model.predict(image)
+
         # Use np.argmax to return the highest number from the array. In theory it should be the number drawn in the
-        prediction_number = np.array(np.argmax(model.predict(image)))
+        predicted_number = np.argmax(prediction)
 
-        # prediction = model.predict(image/255, batch_size=8, verbose=0)
-        # prediction = model.predict(image)
-        # print(prediction_number)
-        # print(prediction)
+        # convert ndarray to list to be send in the response
+        prediction = np.array(prediction).tolist()
 
-        # canvas
-        # predicted_number = str(np.argmax(prediction_number))
-        # print(predicted_number)
-
-        response_data = {}
         try:
-            response_data['prediction'] = str(prediction_number)
-            response_data['result'] = 'Success'
+            # Return the prediction data to the webapp
+            return jsonify({'prediction': prediction, 'predicted_number': str(predicted_number)})
         except:
-            response_data['result'] = 'Failed'
-            response_data['message'] = 'Script has not ran correctly'
-
-        # Return the number to the webpack
-        return jsonify(response_data)
+            # return failed is script does not process data correctly
+            return jsonify({'prediction': "failed!"})
 
 
-# Function to resize and flatten the image received int he POST request
+# Function to resize the image the 28x28 and flatten the image received in the POST request
 def prepare_image(img, size=(28, 28)):
     return cv2.resize(img, size).flatten()
 
 
-# Function to convert the data sent in the /predict post request to an image
+# Function to convert the data sent in the data url to an image. It will ignore the first 22 bits of the data as that
+# needed to decode the image
 def convert_to_image(image_data):
     print(image_data[22:])
     # Decode the image & save the image
@@ -96,6 +93,6 @@ def convert_to_image(image_data):
         f.write(base64.b64decode(image_data[22:]))
 
 
-# Running application
+# Running application on localhost:5000
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
