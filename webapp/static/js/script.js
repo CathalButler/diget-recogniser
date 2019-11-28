@@ -68,7 +68,7 @@ function sendCanvasData() {
         data: {data_url_string: canvas_data_url}
     }).done(function (data) {
         // Log backend response and output the number to the frontend HTML page
-        console.log('Neural Network predicted a:' + data['predicted_number']);
+        console.log('Neural Network predicted a: ' + data['predicted_number']);
         $("#result").empty().append(data['predicted_number']);
         displayChart(data['prediction'][0])
     });

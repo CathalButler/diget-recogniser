@@ -6,6 +6,8 @@ prediction from the trained model and return answer.
 
 ### [Try it live here](http://34.243.25.139:8080/) 
 
+![example](https://github.com/butlawr/Emerging-Technologies-Project/blob/master/assets/exmple.gif)
+
 ### Environment Setup
 The environment setup needed:
  

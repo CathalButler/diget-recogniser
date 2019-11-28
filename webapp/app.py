@@ -13,6 +13,8 @@ requirements needed to to a prediction of the number agents a trained model. The
 to the user. 
 
 Reference:
+Ian McLoughlin lecture of the module and tutor for this project. Lecture content, labs and online video tutorials and 
+explanation
 https://www.jitsejan.com/python-and-javascript-in-flask.html
 https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html
 https://stackoverflow.com/questions/45408496/getting-error-cannot-reshape-array-of-size-122304-into-shape-52-28-28
@@ -36,12 +38,12 @@ def index():
 # GET, POST ROUTE which will allow a POST request of input canvas data to be processed and then returned
 @app.route('/predict', methods=['POST', 'GET'])
 def post_predict():
+    print("Request received")
     # ensure an image was properly uploaded to our endpoint
     if request.method == 'POST':
         # read data from request
         data_url = request.values['data_url_string']
 
-        print(data_url)
         # remove unneeded data from the start of the data URL and convert the bytes into an image
         convert_to_image(data_url)
 
@@ -67,6 +69,7 @@ def post_predict():
         # convert ndarray to list to be send in the response
         prediction = np.array(prediction).tolist()
 
+        print("Request processed. Neural network predicted: ", str(predicted_number))
         try:
             # Return the prediction data to the webapp
             return jsonify({'prediction': prediction, 'predicted_number': str(predicted_number)})
@@ -83,10 +86,8 @@ def prepare_image(img, size=(28, 28)):
 # Function to convert the data sent in the data url to an image. It will ignore the first 22 bits of the data as that
 # needed to decode the image
 def convert_to_image(image_data):
-    print(image_data[22:])
     # Decode the image & save the image
     with open('input_digit.png', 'wb') as f:
-        # data_url[24:] using everything in the array after 24
         f.write(base64.b64decode(image_data[22:]))
 
 
