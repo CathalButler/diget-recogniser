@@ -16,7 +16,6 @@ The environment setup needed:
  * Install [Python 3.7 ](https://www.python.org/downloads/)
  * Set up a [python virtual environment](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments) inside the project directory:
     * `cd /Emerging-Technologies-Project`
-    * `pip3 install virtualenv`
     * `python3 -m venve ./venv`
         * this will create a virtual environment called venv, you may name it what you like.
  * To activate virtual environment created inside the project directory:
@@ -41,3 +40,16 @@ Before you begin to run this application please make sure you refer to the envir
 * `cd /webapp`
 * `export FLASK_APP=app.py && flask run`
     - Webapp accessible @ `http://127.0.0.1:5000/`
+
+### Development & Testing
+This project was developed on my own personal laptop running
+* OS: Manjaro Linux
+* Kernel: 5.3.12
+* Python 3.7.4
+* PyCharm 2019.2.5 (Professional Edition)
+  - Build #PY-192.7142.56, built on November 19, 2019
+
+Testing was carried out on my personal machine listed above as well a AWS Ubuntu Server
+* OS: Ubuntu 18.04.3 LTS
+* Kernel: 4.15.0-1054-aws
+* Python 3.6.9
