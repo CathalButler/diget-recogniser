@@ -44,25 +44,23 @@ def post_predict():
     if request.method == 'POST':
         # read data from request
         data_url = request.values['data_url_string']
-
         # remove unneeded data from the start of the data URL and convert the bytes into an image
         convert_to_image(data_url)
-
         # read image into memory
         image = cv2.imread('input_digit.png')
         # convert the image to gray scale
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
         # make it the right size of 28x28
         image = prepare_image(image, size=(28, 28))
         # reshape the array
         image = np.array(image).reshape((1, 28, 28, 1))
 
-        # Load the trained model
-        model = load_model('model.h5')
+        # Load the saved trained model
+        model = load_keras_model()
 
-        # Make a predication with of the image agents tbe trained model
-        prediction = model.predict(image/255, verbose=0)
+        # Make a predication with of the image agents the trained model
+        # image/255 allows the values in the array
+        prediction = model.predict(image / 255, verbose=0)
 
         # Use np.argmax to return the highest number from the array. In theory it should be the number drawn in the
         predicted_number = np.argmax(prediction)
@@ -77,6 +75,22 @@ def post_predict():
         except:
             # return failed is script does not process data correctly
             return jsonify({'prediction': "failed!"})
+
+
+# Function to try and load the model once once it is needed
+# When testing inside my environment `load_model("model.h5")` works and loads the model without the need for ../model.h5
+# but when deployed the application needs `model = load_model('../model.h5')` to locate the model in the
+# parent directory of this one
+def load_keras_model():
+    try:
+        model = load_model('../model.h5')
+    except:
+        try:
+            model = load_model("model.h5")
+        except:
+            print("Failed to load a saved keras model!")
+    finally:
+        return model
 
 
 # Function to resize the image the 28x28 and flatten the image received in the POST request
