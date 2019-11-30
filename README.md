@@ -14,32 +14,35 @@ The environment setup needed:
  
  * Install [Git](https://git-scm.com/downloads) to clone the project via repo URL or download the .zip from the website:
     * `git clone https://github.com/butlawr/Emerging-Technologies-Project`
- * Install [Python 3.7 ](https://www.python.org/downloads/)
- * Set up a [python virtual environment](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments) inside the project directory:
+ * Install [Python 3.7](https://www.python.org/downloads/)
+ * [Install](https://virtualenv.pypa.io/en/latest/installation/) & set up a [python virtual environment](https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments) 
+ inside the project directory:
+    * Install with `pip3 install virtualenv` or through your package manager on linux | Windows `pip install virtualenv`
     * `cd /Emerging-Technologies-Project`
-    * `python3 -m venve ./venv`
+    * `python3 -m venve ./venv` | Windows `python -m venv ./venv`
         * this will create a virtual environment called venv, you may name it what you like.
  * To activate virtual environment created inside the project directory:
-    * `source venv/bin/activate`
+    * Linux: `source venv/bin/activate` | Windows `.\venv\Script\activate`
     
  * Install the [required python packages](https://docs.python.org/3/tutorial/venv.html#managing-packages-with-pip) listed in the [requirements.txt](https://github.com/butlawr/Emerging-Technologies-Project/blob/master/requirements.txt) file, this can be done by:
+    * Note: Regardless of which version of Python you are using, when the virtual environment is activated, you should 
+    use the pip command not `pip3`
     * `pip install -r requirements.txt`
-    * Note: Still in development, more requirements may be added.
    
 ### How to run Jupyter Notebook
 Before you begin to run this application please make sure you refer to the environment setup explained below. 
 
 * `cd /Emerging-Technologies-Project`
-* Activate environment: `source venv/bin/activate`
+* Activate environment: `source venv/bin/activate` | Windows `.\venv\Script\activate`
 * To run the notebook: `jupyter notebook`
     - Notebook accessible @ `http://localhost:8888`
 
 ### How to to run Number Prediction Flask Webapp
 
 * `cd /Emerging-Technologies-Projec/`
-* Activate environment if you have not already: `source venv/bin/activate`
+* Activate environment if you have not already: `source venv/bin/activate` | Windows `.\venv\Script\activate`
 * `cd /webapp`
-* `export FLASK_APP=app.py && flask run`
+* `export FLASK_APP=app.py && flask run` | Windows `set FLASK_APP=app.py`, `flask run`
     - Webapp accessible @ `http://127.0.0.1:5000/`
 
 ### Development & Testing
@@ -51,9 +54,12 @@ This project was developed on my own personal laptop running
   - Build #PY-192.7142.56, built on November 19, 2019
 
 Testing was carried out on my personal machine listed above as well a [AWS Ubuntu Server](https://aws.amazon.com/) this
-machine also host the application using [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) & [Nginx](https://www.nginx.com/)
+machine also hosts the application using [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) & [Nginx](https://www.nginx.com/)
 * OS: [Ubuntu 18.04.3 LTS](https://ubuntu.com/download/desktop)
 * Kernel: 4.15.0-1054-aws
 * Python 3.6.9
 
-Windows 10 to be tested!
+Lastly testing on Windows using Command Prompt terminal:
+* OS Windows 10 build 1803
+* Python 3.7
+
