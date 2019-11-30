@@ -4,8 +4,8 @@ A jupyter notebook containing code and documentation to train a model on the MNI
 application that allows user draw a digit from 0 -> 9 and submit it. The application will process the image and make 
 prediction from the trained model and return answer.
 
-!Currently under development
-### [Try it live here](http://34.243.25.139:8080/)
+
+### [Try it live here](http://34.240.7.87/)
 
 ![example](https://github.com/butlawr/Emerging-Technologies-Project/blob/master/assets/example.gif)
 
@@ -50,7 +50,8 @@ This project was developed on my own personal laptop running
 * [PyCharm 2019.2.5 (Professional Edition)](https://www.jetbrains.com/pycharm/)
   - Build #PY-192.7142.56, built on November 19, 2019
 
-Testing was carried out on my personal machine listed above as well a [AWS Ubuntu Server](https://aws.amazon.com/)
+Testing was carried out on my personal machine listed above as well a [AWS Ubuntu Server](https://aws.amazon.com/) this
+machine also host the application using [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) & [Nginx](https://www.nginx.com/)
 * OS: [Ubuntu 18.04.3 LTS](https://ubuntu.com/download/desktop)
 * Kernel: 4.15.0-1054-aws
 * Python 3.6.9

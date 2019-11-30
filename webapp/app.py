@@ -22,8 +22,12 @@ https://github.com/tensorflow/tensorflow/issues/28287#issuecomment-495005162
 http://yangyang.blog/2019/03/it-works-an-epic-debugging-thesis-week-8/
 https://stackoverflow.com/questions/53653303/where-is-the-tensorflow-session-in-keras
 https://stackoverflow.com/questions/30963705/python-regex-attributeerror-nonetype-object-has-no-attribute-group/30964049
+https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_gui/py_image_display/py_image_display.html
 https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect
 https://stackoverflow.com/questions/51025893/flask-at-first-run-do-not-use-the-development-server-in-a-production-environmen
+https://stackoverflow.com/questions/17322208/multiple-try-codes-in-one-block
+https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-uswgi-and-nginx-on-ubuntu-18-04
+https://stackoverflow.com/questions/47113029/importerror-libsm-so-6-cannot-open-shared-object-file-no-such-file-or-directo
 """
 
 # initialize Flask application
@@ -98,8 +102,8 @@ def prepare_image(img, size=(28, 28)):
     return cv2.resize(img, size).flatten()
 
 
-# Function to convert the data sent in the data url to an image. It will ignore the first 22 bits of the data as that
-# needed to decode the image
+# Function to convert the data sent in the data url to an image. It will ignore the first 22 bits of the data string
+# as that is not needed to decode the image.
 def convert_to_image(image_data):
     # Decode the image & save the image
     with open('input_digit.png', 'wb') as f:
@@ -108,4 +112,4 @@ def convert_to_image(image_data):
 
 # Running application on localhost:5000
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
