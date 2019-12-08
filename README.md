@@ -1,6 +1,6 @@
 ## Emerging-Technologies-Project
 ### Cathal Butler | G00346889 | Final Year Software Development
-A jupyter notebook containing code and documentation to train a model on the MNIST dataset as well as a flask web 
+A jupyter notebook containing code and documentation to train a model on the [MNIST dataset](http://yann.lecun.com/exdb/mnist/) as well as a flask web 
 application that allows user draw a digit from 0 -> 9 and submit it. The application will process the image and make 
 prediction from the trained model and return answer.
 
@@ -8,6 +8,8 @@ prediction from the trained model and return answer.
 ### [Try it live here](http://34.240.7.87/)
 
 ![example](https://github.com/butlawr/Emerging-Technologies-Project/blob/master/assets/example.gif)
+
+#### More Information on technologies used [here](https://github.com/butlawr/Emerging-Technologies-Project/wiki)
 
 ### Environment Setup
 The environment setup needed:
