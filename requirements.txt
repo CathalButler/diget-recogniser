@@ -1,4 +1,4 @@
-opencv-python==4.2.0.32
+opencv-python==4.8.1.78
 jupyter==1.0.0
 keras==2.13.1
 tensorflow==2.12.1
